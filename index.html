@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Task List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Simple Task List</h1>
+        <form id="taskForm">
+            <input class="fild" type="text" id="taskInput" placeholder="Enter a task">
+            <button class="add" type="button" id="addTaskBtn">Add Task</button>
+            <button class="remove" type="button" id="removeTaskBtn">Remove Last Task</button>
+        </form>
+
+        <h2>Tasks:</h2>
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+       
+        let tasks = [];
+
+        const taskInput = document.getElementById('taskInput');
+        const taskList = document.getElementById('taskList');
+        const addTaskBtn = document.getElementById('addTaskBtn');
+        const removeTaskBtn = document.getElementById('removeTaskBtn');
+
+       
+        function updateTaskList() {
+            taskList.innerHTML = ''; 
+            tasks.forEach((task, index) => {
+                const li = document.createElement('li');
+                li.textContent = `${index + 1}. ${task}`;
+                taskList.appendChild(li);
+            });
+        }
+
+       
+        addTaskBtn.addEventListener('click', () => {
+            const task = taskInput.value.trim();
+            if (task) {
+                tasks.push(task); 
+                updateTaskList();
+                taskInput.value = ''; 
+            } else {
+                alert('Please enter a task!');
+            }
+        });
+
+       
+        removeTaskBtn.addEventListener('click', () => {
+            if (tasks.length > 0) {
+                tasks.pop(); 
+                updateTaskList(); 
+            } else {
+                alert('No tasks to remove!');
+            }
+        });
+    </script>
+</body>
+</html>
